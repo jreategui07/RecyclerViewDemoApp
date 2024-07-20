@@ -8,7 +8,7 @@
     android:background="#979797">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/black"
@@ -16,7 +16,7 @@
 
     <!--    add the user interface elements that should appear in each row of the Recycler View-->
     <TextView
-        android:id="@+id/tvRowLine1"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Row data goes here"
@@ -33,7 +33,7 @@
         android:backgroundTint="#FF5722"/>
 
     <TextView
-        android:id="@+id/tvRowLine2"
+        android:id="@+id/tvClickMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Click me!"

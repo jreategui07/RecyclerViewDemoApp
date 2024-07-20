@@ -25,37 +25,27 @@ class MyAdapter(val myItems:MutableList<String>, val clickInterface:ClickDetecto
         return myItems.size
     }
 
-
     // 4. For each row, what data should go in the corresponding layout’s UI elements?
     // The “holder” parameter provides access to the row layout’s binding variable
     // The “position” parameter indicates which item in the data source we creating a row for
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("", "JLOG - Creating UI for row #${position}")
+        Log.d("", "Creating UI for row #$position")
         // 4a. Get the current item from the list of data
         // This is a String because the data source is a list of Strings
         // If the data source was a list of Student objects, then use currData:Student
-        val currData: String = this.myItems[position]
-        val positionData: String = "#${position + 1}"
 
-        Log.d("", "JLOG - currData: ${currData}")
-
-        if (position == 1 || position == 2 || position == 3) {
-            val myImageId:Int = holder.itemView.context.resources.getIdentifier("baseline_check_24", "drawable", holder.itemView.context.packageName)
-            holder.binding.imageView.setImageResource(myImageId)
-        } else {
-            val myImageId:Int = holder.itemView.context.resources.getIdentifier("ic_android_black_24", "drawable", holder.itemView.context.packageName)
-            holder.binding.imageView.setImageResource(myImageId)
-        }
+        val icon = if (position <= 3) "ic_android_black_24" else "baseline_check_24"
+        val myImageId:Int = holder.itemView.context.resources.getIdentifier(icon, "drawable", holder.itemView.context.packageName)
+        holder.binding.ivIcon.setImageResource(myImageId)
 
         // 4b. Use the holder variable to populate the <TextView> in the row_layout.xml file
-        holder.binding.tvRowLine1.text = currData
-
-        //
+        val currData: String = this.myItems[position]
+        holder.binding.tvTitle.text = currData
 
         holder.binding.btnPushMe.setOnClickListener {
             clickInterface.onPushMeBtn(position)
         }
-        holder.binding.tvRowLine2.setOnClickListener {
+        holder.binding.tvClickMe.setOnClickListener {
             clickInterface.onClickTv(position)
         }
         holder.binding.parentLayout.setOnClickListener {
