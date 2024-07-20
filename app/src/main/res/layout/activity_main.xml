@@ -18,10 +18,9 @@
         android:layout_marginBottom="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rvContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,10 +35,10 @@
             android:hint="Enter new item"
             android:text="Coffee"/>
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnAddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Item"/>
+            android:text="Add"/>
     </LinearLayout>
 
     <LinearLayout
@@ -48,33 +47,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="16dp">
         <EditText
-            android:id="@+id/etDeletePosition"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Enter position number to delete"
-            android:text="2"/>
-        <Button
-            android:id="@+id/btnDeleteOne"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete Item"/>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnDeleteAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete All"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
-        <EditText
-            android:id="@+id/etUpdatePosition"
+            android:id="@+id/etUpdatePositionItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -84,8 +57,32 @@
             android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Item"/>
+            android:text="Update"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+        <EditText
+            android:id="@+id/etDeletePositionItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Enter position number to delete"
+            android:text="2"/>
+        <Button
+            android:id="@+id/btnDeleteOneItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnDeleteAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F44336"
+        android:text="Delete all items"/>
 
 </LinearLayout>

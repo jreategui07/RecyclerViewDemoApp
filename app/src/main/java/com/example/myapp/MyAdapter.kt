@@ -53,13 +53,13 @@ class MyAdapter(val myItems:MutableList<String>, val clickInterface:ClickDetecto
         //
 
         holder.binding.btnPushMe.setOnClickListener {
-            clickInterface.myClickFunction1(position)
+            clickInterface.onPushMeBtn(position)
         }
         holder.binding.tvRowLine2.setOnClickListener {
-            clickInterface.myClickFunction2(position)
+            clickInterface.onClickTv(position)
         }
         holder.binding.parentLayout.setOnClickListener {
-            clickInterface.rowClicked(position)
+            clickInterface.onRowClicked(position)
         }
     }
 }

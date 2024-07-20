@@ -5,110 +5,99 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
+import com.example.myapp.utils.SnackbarHelper
 import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity(), ClickDetectorInterface {
 
     private lateinit var binding: ActivityMainBinding
-
-    var dataToDisplay:MutableList<String> = mutableListOf()
-    lateinit var adapter: MyAdapter
+    private lateinit var adapter: MyAdapter
+    private lateinit var snackbarHelper: SnackbarHelper
+    private var fruitList:MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        this.binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(this.binding.root)
 
-        // ---- RecyclerView -----
-        // define a list of data
-        this.dataToDisplay = mutableListOf("Apple", "Banana", "Carrot", "Donut")
-        var numbersList:MutableList<String> = mutableListOf("1", "2", "3", "4")
-        var lettersList:MutableList<String> = mutableListOf("A", "B", "C", "D")
+        // getting mock data
+        this.fruitList = Mock.FRUIT_LIST.toMutableList()
 
         // create an instance of the adapter
-        this.adapter = MyAdapter(dataToDisplay, this)
-        binding.rv.adapter = adapter
+        this.adapter = MyAdapter(this.fruitList, this)
+        this.binding.rvContainer.adapter = this.adapter
+
+        // init custom snackbar helper
+        this.snackbarHelper = SnackbarHelper(this.binding.root)
 
         // required
-        binding.rv.layoutManager = LinearLayoutManager(this)
+        this.binding.rvContainer.layoutManager = LinearLayoutManager(this)
 
-        // add a line between each item in the list
-        binding.rv.addItemDecoration(
+        // adding a line between each item in the list of the
+        this.binding.rvContainer.addItemDecoration(
             DividerItemDecoration(
                 this,
                 LinearLayoutManager.VERTICAL
             )
         )
-        // ---- end RecyclerView -----
 
+        // click handlers
+        this.binding.btnAddItem.setOnClickListener {
+            val newItem:String = this.binding.etItemName.text.toString()
 
+            // add item to the end of the list
+            fruitList.add(newItem)
+            this.adapter.notifyDataSetChanged()
 
-        // ---- click handlers -----
-        binding.btnAdd.setOnClickListener {
-            val itemName:String = binding.etItemName.text.toString()
-            val snackbar = Snackbar.make(binding.root, "Item to add: ${itemName}", Snackbar.LENGTH_SHORT)
-            snackbar.show()
-
-            // TODO: Code to add item to the end of the list
-            dataToDisplay.add(itemName)
-            adapter.notifyDataSetChanged()
+            this.snackbarHelper.showSnackbar("Item added: $newItem")
         }
 
-        binding.btnDeleteAll.setOnClickListener {
-            val snackbar = Snackbar.make(binding.root, "All items deleted!", Snackbar.LENGTH_SHORT)
-            snackbar.show()
+        this.binding.btnDeleteAll.setOnClickListener {
+            // delete all items
+            fruitList.clear()
+            this.adapter.notifyDataSetChanged()
 
-            // TODO: Code to delete all items
-            dataToDisplay.clear()
-            adapter.notifyDataSetChanged()
+            this.snackbarHelper.showSnackbar("All items deleted")
         }
 
-        binding.btnDeleteOne.setOnClickListener {
+        this.binding.btnDeleteOneItem.setOnClickListener {
             // assumes user will always type a number
-            val pos = binding.etDeletePosition.text.toString().toInt()
-            val snackbar = Snackbar.make(binding.root, "Position to delete: ${pos}", Snackbar.LENGTH_SHORT)
-            snackbar.show()
+            val pos = this.binding.etDeletePositionItem.text.toString().toInt()
 
-            // TODO: Code to delete the item in the specified position
-            dataToDisplay.removeAt(pos)
-            adapter.notifyDataSetChanged()
+            // delete the item in the specified position
+            fruitList.removeAt(pos)
+            this.adapter.notifyDataSetChanged()
+
+            this.snackbarHelper.showSnackbar("Deleted row: $pos")
         }
 
-        binding.btnUpdate.setOnClickListener {
+        this.binding.btnUpdate.setOnClickListener {
             // assumes user will always type a number
-            val pos = binding.etUpdatePosition.text.toString().toInt()
+            val pos = this.binding.etUpdatePositionItem.text.toString().toInt()
 
             // randomly generate a number between 99-150 and add it to the end of the item
-            val randomNumber =  Random.nextInt(99, 150)
+            val randomNumber: Int =  Random.nextInt(100, 999)
 
-            // TODO: Code to update the item in the specified position
-            dataToDisplay[pos] = "${dataToDisplay[pos]} - ${randomNumber}"
-            adapter.notifyItemChanged(pos)
+            // update the item in the specified position
+            fruitList[pos] = "$randomNumber"
+            this.adapter.notifyItemChanged(pos)
 
-            val snackbar = Snackbar.make(binding.root, "Updating ${pos} with ${randomNumber}", Snackbar.LENGTH_SHORT)
-            snackbar.show()
+            this.snackbarHelper.showSnackbar("Updated row: $pos, with: $randomNumber")
         }
-
     }
 
-    //
-
-    override fun myClickFunction1(position: Int) {
-        val snackbar = Snackbar.make(binding.root, "You clicked button at row ${position}", Snackbar.LENGTH_SHORT)
-        snackbar.show()
+    override fun onPushMeBtn(position: Int) {
+        this.snackbarHelper.showSnackbar("On push me button at position: $position")
     }
 
-    override fun myClickFunction2(position: Int) {
-        val snackbar = Snackbar.make(binding.root, "AAAAAAA ${position}", Snackbar.LENGTH_SHORT)
-        snackbar.show()
+    override fun onClickTv(position: Int) {
+        this.snackbarHelper.showSnackbar("On click text-view at position: $position")
     }
 
-    override fun rowClicked(position: Int) {
-        this.dataToDisplay.removeAt(position)
-        adapter.notifyDataSetChanged()
-//        val snackbar = Snackbar.make(binding.root, "REMOVE... ${position}", Snackbar.LENGTH_SHORT)
-//        snackbar.show()
+    override fun onRowClicked(position: Int) {
+        this.fruitList.removeAt(position)
+        this.adapter.notifyDataSetChanged()
+        this.snackbarHelper.showSnackbar("On row clicked at position: $position")
     }
 }
