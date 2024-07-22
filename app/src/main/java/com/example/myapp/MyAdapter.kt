@@ -34,7 +34,7 @@ class MyAdapter(val myItems:MutableList<String>, val clickInterface:ClickDetecto
         // This is a String because the data source is a list of Strings
         // If the data source was a list of Student objects, then use currData:Student
 
-        val icon = if (position <= 3) "ic_android_black_24" else "baseline_check_24"
+        val icon = if (position <= 2) "ic_android_black_24" else "baseline_check_24"
         val myImageId:Int = holder.itemView.context.resources.getIdentifier(icon, "drawable", holder.itemView.context.packageName)
         holder.binding.ivIcon.setImageResource(myImageId)
 
