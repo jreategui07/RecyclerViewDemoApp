@@ -4,40 +4,45 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="10dp"
     android:background="#979797">
-
     <ImageView
         android:id="@+id/ivIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:background="@color/black"
         android:src="@drawable/ic_android_black_24" />
-
-    <!--    add the user interface elements that should appear in each row of the Recycler View-->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Row data goes here"
-        android:textSize="24sp"
-        android:textColor="#FF0000"
-        android:textStyle="bold|italic"
-        />
-
-    <Button
-        android:id="@+id/btnPushMe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Push me!"
-        android:backgroundTint="#FF5722"/>
-
-    <TextView
-        android:id="@+id/tvClickMe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click me!"
-        android:textSize="24sp"
-        android:textColor="#1C30B2" />
-
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data goes here"
+            android:textSize="24sp"
+            android:textColor="#FF0000"
+            android:textStyle="bold|italic" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnPushMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Push me!"
+                android:backgroundTint="#FF5722"/>
+            <TextView
+                android:id="@+id/tvClickMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click me!"
+                android:textSize="24sp"
+                android:textColor="#1C30B2"
+                android:paddingLeft="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

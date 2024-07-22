@@ -8,7 +8,6 @@ import com.example.myapp.databinding.ActivityMainBinding
 import com.example.myapp.utils.SnackbarHelper
 import kotlin.random.Random
 
-
 class MainActivity : AppCompatActivity(), ClickDetectorInterface {
 
     private lateinit var binding: ActivityMainBinding
@@ -24,14 +23,14 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         // getting mock data
         this.fruitList = Mock.FRUIT_LIST.toMutableList()
 
-        // create an instance of the adapter
+        // create an instance of the custom adapter
         this.adapter = MyAdapter(this.fruitList, this)
         this.binding.rvContainer.adapter = this.adapter
 
         // init custom snackbar helper
         this.snackbarHelper = SnackbarHelper(this.binding.root)
 
-        // required
+        // configuring the RecyclerView with a LinearLayoutManager
         this.binding.rvContainer.layoutManager = LinearLayoutManager(this)
 
         // adding a line between each item in the list of the
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         this.binding.btnAddItem.setOnClickListener {
             val newItem:String = this.binding.etItemName.text.toString()
 
-            // add item to the end of the list
+            // adding new item to the end of the list
             fruitList.add(newItem)
             this.adapter.notifyDataSetChanged()
 
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         }
 
         this.binding.btnDeleteAll.setOnClickListener {
-            // delete all items
+            // deleting all items
             fruitList.clear()
             this.adapter.notifyDataSetChanged()
 
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         }
 
         this.binding.btnDeleteOneItem.setOnClickListener {
-            // assumes user will always type a number
+            // assuming the user will always type a number
             val pos = this.binding.etDeletePositionItem.text.toString().toInt()
 
             // delete the item in the specified position
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity(), ClickDetectorInterface {
         }
 
         this.binding.btnUpdate.setOnClickListener {
-            // assumes user will always type a number
+            // assuming the user will always type a number
             val pos = this.binding.etUpdatePositionItem.text.toString().toInt()
 
             // randomly generate a number between 99-150 and add it to the end of the item
